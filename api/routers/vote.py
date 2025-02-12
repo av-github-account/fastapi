@@ -3,10 +3,7 @@ from sqlalchemy.orm import Session
 from .. import schemas, database, models, oauth2
 
 
-router = APIRouter(
-    prefix="/vote", 
-    tags=["Vote"]
-    )
+router = APIRouter(prefix="/vote", tags=["Vote"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
@@ -20,8 +17,8 @@ def vote(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"post with id: {vote.post_id} does not exist",
-    )    
-    
+        )
+
     vote_qery = db.query(models.Vote).filter(
         models.Vote.post_id == vote.post_id, models.Vote.user_id == current_user.id
     )
